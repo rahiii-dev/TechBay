@@ -1,0 +1,21 @@
+{
+  "name": "techbay",
+  "version": "1.0.0",
+  "description": "An electronic e-commerce website built using Nodejs, express and MonngoDb",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rahib K V",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^8.3.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
