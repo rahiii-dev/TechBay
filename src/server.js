@@ -19,9 +19,22 @@ app.use(expressLayouts);
 app.use('/static', express.static('public'));
 
 // Middlewares
+const methodOvveriding = require('./middleware/methodOverrideMiddleware');
+const morgan = require('morgan');
+
+app.use(methodOvveriding('_methhod'));
+
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config();
+    app.use(morgan('dev'));
+}else{
+    app.use(morgan('short'));
+}
 
 // Routes
-
+app.get('/', (req, res) => {
+    res.send("Hello");
+})
 // Error Handling
 
 // start erver
