@@ -1,0 +1,18 @@
+<div class="container">
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" value="<%= username %>"><br>
+        <% if(error) {%>
+            <p class="text-danger"><%= error %></p>
+        <% }%>
+        <input type="password" name="password" placeholder="Password"><br>
+    
+        <button type="submit">Login</button>
+
+        <a href="/register">Not a user? signup</a>
+    </form>
+    
+    <div>
+        <a class="btn btn-info" href="">Continue with google</a>
+        <a class="btn btn-primary" href="">Continue with facebook</a>
+    </div>
+</div>
