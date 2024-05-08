@@ -51,19 +51,34 @@ if(DEVLOPEMENT){
 }
 
 // Routes
-const shopRouter = require('./router/shopRouter')
+const shopRouter = require('./router/shop/shopRouter');
+const shopAuthRouter = require('./router/shop/shopAuthRouter');
+const adminRouter = require('./router/admin/adminRouter');
+const adminAuthRouter = require('./router/admin/adminAuthRouter');
 
-app.use(shopRouter)
+app.use(shopRouter);
+app.use(shopAuthRouter);
+app.use(adminRouter);
+app.use(adminAuthRouter);
 
-// Error Handling
-if(!DEVLOPEMENT){
-    app.use( (err, req, res, next) => {
-        console.log(err);
+// 404 
+app.use((req, res, next) => {
+    res.status(404).send('<h1>Page Not Found</h1>');
+});
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error(err);
+
+    if (!DEVLOPEMENT) {
         res.status(500).json({ error: 'Internal Server Error' });
-    });
-}
+    } else {
+        res.status(500).json({ error: err.message, stack: err.stack });
+    }
+});
+
 
 // start erver
 app.listen(serverConfig.port, serverConfig.host, () => {
-    console.log(`Server running on: http://${serverConfig.host}:${serverConfig.port}`)
+    console.log(`Server running on ${serverConfig.domain()}`)
 })

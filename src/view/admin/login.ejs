@@ -1,4 +1,5 @@
 <div class="container">
+    <h1>Login for Admin</h1>
     <form action="/login" method="post">
         <input type="email" name="email" placeholder="Email" value="<%= locals.errorObj?.email || '' %>"><br>
         <% if(locals.errorObj && errorObj.emailError) { %>

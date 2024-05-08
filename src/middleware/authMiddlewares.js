@@ -1,6 +1,6 @@
 module.exports = {
 
-    isAuthenticated : (redirectUrl) => {
+    checkAuthenticated : (redirectUrl) => {
         return (req, res, next) => {
             if(!req.isAuthenticated()){
                 return res.redirect(redirectUrl);
@@ -10,7 +10,7 @@ module.exports = {
         }
     },
     
-    isNotAuthenticated : (redirectUrl) => {
+    checkNotAuthenticated : (redirectUrl) => {
         return (req, res, next) => {
             if(!req.isUnauthenticated()){
                 return res.redirect(redirectUrl);
