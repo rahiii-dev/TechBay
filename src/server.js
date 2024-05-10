@@ -25,7 +25,7 @@ app.set('view engine', 'ejs');
 app.set('layout', './layouts/default');
 app.use(expressLayouts);
 
-app.use('/static', express.static('public'));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended : true}));
 
 app.use(session({
@@ -39,6 +39,7 @@ app.use(flash());
 
 // Middlewares
 const methodOvveriding = require('./middleware/methodOverrideMiddleware');
+const layoutChanger = require('./middleware/layoutChangeMiddleware');
 const morgan = require('morgan');
 
 app.use(methodOvveriding('_methhod'));
@@ -55,8 +56,10 @@ const shopAuthRouter = require('./router/shop/shopAuthRouter');
 const adminRouter = require('./router/admin/adminRouter');
 const adminAuthRouter = require('./router/admin/adminAuthRouter');
 
+app.use(layoutChanger('layouts/userLayout'))
 app.use(shopRouter);
 app.use(shopAuthRouter);
+app.use(layoutChanger('layouts/default'))
 app.use('/admin', adminAuthRouter);
 app.use('/admin', adminRouter);
 

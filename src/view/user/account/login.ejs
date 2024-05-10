@@ -1,20 +1,104 @@
-<div class="container">
-    <form action="/login" method="post">
-        <input type="email" name="email" placeholder="Email" value="<%= locals.errorObj?.email || '' %>"><br>
-        <% if(locals.errorObj && errorObj.emailError) { %>
-            <p class="text-danger"><%= errorObj.emailError %></p>
-        <% } %>
-        <input type="password" name="password" placeholder="Password"><br>
-        <% if(locals.errorObj && errorObj.passwordError) { %>
-            <p class="text-danger"><%= errorObj.passwordError %></p>
-        <% } %>
-        <button type="submit">Login</button>
+<div class="app-content">
 
-        <a href="/register">Not a user? signup</a>
-    </form>
-    
-    <div>
-        <a class="btn btn-info" href="/auth/google">Continue with google</a>
-        <a class="btn btn-primary" href="/auth/facebook">Continue with facebook</a>
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-60">
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="breadcrumb">
+                    <div class="breadcrumb__wrap">
+                        <ul class="breadcrumb__list">
+                            <li class="has-separator">
+
+                                <a href="/">Home</a></li>
+                            <li class="is-marked">
+
+                                <a href="/login">Signin</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!--====== End - Section 1 ======-->
+
+
+    <!--====== Section 2 ======-->
+    <div class="u-s-p-b-60">
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="row row--center">
+                    <div class="col-lg-6 col-md-8 u-s-m-b-30">
+                        <div class="l-f-o">
+                            <div class="l-f-o__pad-box">
+                                <h1 class="gl-h1">SIGNIN</h1>
+
+                                <span class="gl-text u-s-m-b-30">If you have dont have an account<a class="gl-link" href="/register">create one here?</a></span>
+
+                                <form class="l-f-o__form" action="/login" method="post">
+                                    <div class="u-s-m-b-25">
+
+                                        <label class="gl-label" for="login-email">E-MAIL *</label>
+
+                                        <input name="email" class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Enter E-mail" value="<%= locals.errorObj?.email || '' %>">
+                                    
+                                        <% if(locals.errorObj && errorObj.emailError) { %>
+                                            <p class="text-danger"><%= errorObj.emailError %></p>
+                                        <% } %>
+                                    </div>
+                                    <div class="u-s-m-b-25">
+
+                                        <label class="gl-label" for="login-password">PASSWORD *</label>
+
+                                        <input name="password" class="input-text input-text--primary-style" type="text" id="login-password" placeholder="Enter Password">
+                                        <% if(locals.errorObj && errorObj.passwordError) { %>
+                                            <p class="text-danger mb-2"><%= errorObj.passwordError %></p>
+                                        <% } %>
+                                    </div>
+                                    <div class="gl-inline">
+                                        <div class="u-s-m-b-30">
+
+                                            <button class="btn btn--e-transparent-brand-b-2" type="submit">LOGIN</button></div>
+                                        <div class="u-s-m-b-30">
+                                            <a class="gl-link" href="lost-password.html">Lost Your Password?</a>
+                                        </div>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                    <!--====== Check Box ======-->
+                                    <div class="check-box">
+
+                                        <input type="checkbox" id="remember-me">
+                                        <div class="check-box__state check-box__state--primary">
+
+                                            <label class="check-box__label" for="remember-me">Remember Me</label></div>
+                                    </div>
+                                    <!--====== End - Check Box ======-->
+                   
+                                </form>
+                                <div class="gl-s-api">
+                                    <div class="u-s-m-b-15 mt-4">
+
+                                        <a href="/auth/facebook" class="gl-s-api__btn gl-s-api__btn--fb rounded" type="button"><i class="fab fa-facebook-f"></i>
+
+                                            <span>Signin with Facebook</span></a>
+                                    </div>
+                                    <div class="u-s-m-b-15">
+
+                                        <a href="/auth/google" class="gl-s-api__btn gl-s-api__btn--gplus rounded" type="button"><i class="fab fa-google"></i>
+
+                                            <span>Signin with Google</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+    <!--====== End - Section 2 ======-->
 </div>

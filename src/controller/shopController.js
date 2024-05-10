@@ -4,6 +4,7 @@ module.exports = {
         Purpose: Render the homepage
     */
     renderHomePage : (req, res) => {
-        res.render('user/home', {title : "Tech Bay | Home"});
+        const isAuthenticated = req.isAuthenticated() || req.session.isAuthenticated;
+        res.render('user/home', {title : "Tech Bay | Home", isAuthenticated});
     },
 }
