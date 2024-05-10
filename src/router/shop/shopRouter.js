@@ -3,13 +3,22 @@ const router = require('express').Router();
 const controller = require('../../controller/shopController');
 
 const noCaheMiddleware = require('../../middleware/noCacheMiddleware');
-const checkAuthenticated = require('../../middleware/authMiddlewares').checkAuthenticated('/login');
+const authMiddleware = require('../../middleware/authMiddlewares')
+
+const checkAuthenticated = authMiddleware.checkAuthenticated('/login');
+const checkIsAdmin = authMiddleware.checkIsAdmin('/admin');
 
 // public rotes
-router.get('/', noCaheMiddleware ,controller.renderHomePage);
+router.get('/', 
+    checkIsAdmin,
+    noCaheMiddleware ,
+    controller.renderHomePage);
 
 // private routes
-router.get('/protected', checkAuthenticated, (req, res) => {
+router.get('/protected', 
+    checkIsAdmin,
+    checkAuthenticated,
+    (req, res) => {
     res.send("<a class='btn btn-danger' href='/logout'>Logout</a>");
 })
 

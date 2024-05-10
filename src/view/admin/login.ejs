@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Login for Admin</h1>
-    <form action="/login" method="post">
+    <form action="/admin/login" method="post">
         <input type="email" name="email" placeholder="Email" value="<%= locals.errorObj?.email || '' %>"><br>
         <% if(locals.errorObj && errorObj.emailError) { %>
             <p class="text-danger"><%= errorObj.emailError %></p>
@@ -11,11 +11,5 @@
         <% } %>
         <button type="submit">Login</button>
 
-        <a href="/register">Not a user? signup</a>
     </form>
-    
-    <div>
-        <a class="btn btn-info" href="/auth/google">Continue with google</a>
-        <a class="btn btn-primary" href="/auth/facebook">Continue with facebook</a>
-    </div>
 </div>

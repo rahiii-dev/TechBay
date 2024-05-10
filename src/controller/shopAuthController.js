@@ -31,7 +31,6 @@ module.exports = {
             const newUser = new User({email, phone, password : hashedPass});
             await newUser.save();
             
-            console.log(newUser);
             return res.redirect("/login");
         } catch (error) {
             next(error)

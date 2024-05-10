@@ -9,6 +9,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const serverConfig = require('./serverConfig');
 
 const User = require('../model/userModel');
+const Admin = require('../model/adminModel');
 const bcrypt = require('bcrypt');
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
@@ -27,7 +28,7 @@ passport.use('local', new LocalStrategy({
         try {
             const userObj = await User.findOne({email})
             if(userObj){
-                const match = bcrypt.compare(password, userObj.password);
+                const match = await bcrypt.compare(password, userObj.password);
                 if(match){
                     return done(null, {id : userObj.id});
                 }

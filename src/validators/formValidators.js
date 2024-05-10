@@ -45,7 +45,6 @@ module.exports = {
 
     handleFormValidation : function(renderPagePath, renderPageTiltle = 'Tech Bay') {
         return (req, res, next) => {
-            console.log(renderPagePath)
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {

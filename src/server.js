@@ -37,7 +37,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-
 // Middlewares
 const methodOvveriding = require('./middleware/methodOverrideMiddleware');
 const morgan = require('morgan');
@@ -58,8 +57,8 @@ const adminAuthRouter = require('./router/admin/adminAuthRouter');
 
 app.use(shopRouter);
 app.use(shopAuthRouter);
-app.use(adminRouter);
-app.use(adminAuthRouter);
+app.use('/admin', adminAuthRouter);
+app.use('/admin', adminRouter);
 
 // 404 
 app.use((req, res, next) => {
