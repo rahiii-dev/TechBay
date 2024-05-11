@@ -17,11 +17,22 @@ router.get('/', noCaheMiddleware,
         return res.redirect('/admin/login')
 })
 
-router.use(checkIsAutheticatedAndAdmin);
+// router.use(checkIsAutheticatedAndAdmin);
+
+function menuChangerMiddleware(activeMenu = 'dashboard') {
+    return (req, res, next) => {
+        res.locals.menu = activeMenu;
+        next()
+    }
+}
 
 router.get('/dashboard', 
     noCaheMiddleware,
+    menuChangerMiddleware('dashboard'),
     controller.renderDashboardPage
 );
+
+const categoryRouter = require('./categoryRouter');
+router.use('/category', menuChangerMiddleware('category'), categoryRouter);
 
 module.exports = router;

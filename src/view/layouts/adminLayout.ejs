@@ -9,11 +9,11 @@
     <meta name="description" content="POS - Bootstrap Admin Template" />
     <meta
       name="keywords"
-      content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern,  html5, responsive"
+      content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects"
     />
     <meta name="author" content="Dreamguys - Bootstrap Admin Template" />
     <meta name="robots" content="noindex, nofollow" />
-    <title><%- locals.title || "Tech Bay | Admin" %></title>
+    <title>Dreams Pos admin template</title>
 
     <link
       rel="shortcut icon"
@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="/static/backend/assets/css/bootstrap.min.css" />
 
     <link rel="stylesheet" href="/static/backend/assets/css/animate.css" />
+
+    <link rel="stylesheet" href="/static/backend/assets/plugins/select2/css/select2.min.css" />
 
     <link rel="stylesheet" href="/static/backend/assets/css/dataTables.bootstrap4.min.css" />
 
@@ -141,31 +143,50 @@
         <div class="sidebar-inner slimscroll">
           <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-              <li class="active">
-                <a href="index.html"
+              <!-- ==== Dashboard ==== -->
+              <li class="<%= locals.menu == 'dashboard' ? 'active' : '' %>">
+                <a href="/admin/dashboard"
                   ><img src="/static/backend/assets/img/icons/dashboard.svg" alt="img" /><span>
                     Dashboard</span
                   >
                 </a>
               </li>
+              <!-- ==== Product ==== -->
+                <li class="submenu">
+                  <a  href="javascript:void(0);" class="<%= locals.menu == 'product' ? 'active' : ''%>">
+                      <img src="/static/backend/assets/img/icons/product.svg" alt="img" />
+                      <span>Product</span>
+                      <span class="menu-arrow"></span
+                  ></a>
+                  <ul>
+                    <li><a href="productlist.html">Product List</a></li>
+                    <li><a href="addproduct.html">Add Product</a></li>
+                  </ul>
+                </li>
+
+              <!-- ==== Category ==== -->
               <li class="submenu">
-                <a href="javascript:void(0);"
-                  ><img src="/static/backend/assets/img/icons/product.svg" alt="img" /><span>
-                    Product</span
-                  >
+                <a href="javascript:void(0);" class="<%= locals.menu == 'category' ? 'active' : ''%>">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <span>
+                    Category</span>
                   <span class="menu-arrow"></span
                 ></a>
                 <ul>
-                  <li><a href="productlist.html">Product List</a></li>
-                  <li><a href="addproduct.html">Add Product</a></li>
-                  <li><a href="categorylist.html">Category List</a></li>
-                  <li><a href="addcategory.html">Add Category</a></li>
-                  <li><a href="subcategorylist.html">Sub Category List</a></li>
-                  <li><a href="subaddcategory.html">Add Sub Category</a></li>
-                  <li><a href="brandlist.html">Brand List</a></li>
-                  <li><a href="addbrand.html">Add Brand</a></li>
-                  <li><a href="importproduct.html">Import Products</a></li>
-                  <li><a href="barcode.html">Print Barcode</a></li>
+                  <li><a href="/admin/category/list">Category List</a></li>
+                  <li><a href="/admin/category/add">Add Category</a></li>
+                </ul>
+              </li>
+              <!-- ==== User ==== -->
+              <li class="submenu">
+                <a href="javascript:void(0);" class="<%= locals.menu == 'user' ? 'active' : ''%>"><img src="/static/backend/assets/img/icons/users1.svg" alt="img" /><span>
+                  Users</span
+                >
+                  <span class="menu-arrow"></span
+                ></a>
+                <ul>
+                  <li><a href="/admin/user/list">User List</a></li>
+                  <li><a href="/admin/user/add">Add User</a></li>
                 </ul>
               </li>
             </ul>
@@ -176,9 +197,7 @@
 
       <div class="page-wrapper">
           <!-- ====App Content==== -->
-        <div class="content">
             <%- body %>
-        </div>
         <!-- ====End App Content==== -->
       </div>
     </div>
@@ -194,8 +213,10 @@
 
     <script src="/static/backend/assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="/static/backend/assets/plugins/apexchart/apexcharts.min.js"></script>
-    <script src="/static/backend/assets/plugins/apexchart/chart-data.js"></script>
+    <script src="/static/backend/assets/plugins/select2/js/select2.min.js"></script>
+
+    <script src="/static/backend/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="/static/backend/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
     <script src="/static/backend/assets/js/script.js"></script>
   </body>
