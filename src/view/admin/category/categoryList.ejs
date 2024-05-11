@@ -93,73 +93,52 @@
 
       <div class="table-responsive">
         <table class="table">
-          <thead>
+            <thead>
             <tr>
               <th>Category name</th>
               <th>Description</th>
-              <th>Active Status</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="productimgname">
-                <a href="javascript:void(0);" class="product-img">
-                  <img
-                    src="/static/backend/assets/img/product/noimage.png"
-                    alt="product"
-                  />
-                </a>
-                <a href="javascript:void(0);">Computers</a>
-              </td>
-              <td>Computers Description</td>
-              <td>
-                <span class="bg-lightred badges">Inactive</span>
-              </td>
-              <td>
-                <a class="me-3" href="editcategory.html">
-                  <img
-                    src="/static/backend/assets/img/icons/edit.svg"
-                    alt="img"
-                  />
-                </a>
-                <a class="me-3 confirm-text" href="javascript:void(0);">
-                  <img
-                    src="/static/backend/assets/img/icons/delete.svg"
-                    alt="img"
-                  />
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td class="productimgname">
-                <a href="javascript:void(0);" class="product-img">
-                  <img
-                    src="/static/backend/assets/img/product/noimage.png"
-                    alt="product"
-                  />
-                </a>
-                <a href="javascript:void(0);">Computers</a>
-              </td>
-              <td>Computers Description</td>
-              <td>
-                <span class="bg-lightgreen badges">Active</span>
-              </td>
-              <td>
-                <a class="me-3" href="editcategory.html">
-                  <img
-                    src="/static/backend/assets/img/icons/edit.svg"
-                    alt="img"
-                  />
-                </a>
-                <a class="me-3 confirm-text" href="javascript:void(0);">
-                  <img
-                    src="/static/backend/assets/img/icons/delete.svg"
-                    alt="img"
-                  />
-                </a>
-              </td>
-            </tr>
+              <% if(locals.categories) {%>
+                <% for(let category of categories){ %>
+                    <tr>
+                        <td class="productimgname">
+                          <a href="javascript:void(0);" class="product-img">
+                            <img
+                              src="/<%= category.image %>"
+                              alt="/<%= category.name %>"
+                            />
+                          </a>
+                          <a href="javascript:void(0);"><%= category.name %></a>
+                        </td>
+                        <td><%= category.description %></td>
+                        <td>
+                            <% if(category.isActive){%>
+                                <a href="/admin/category/change_status/<%= category.id %>?status=false&_method=PATCH" class="bg-lightgreen badges text-white">Active</a>
+                            <%} else {%>
+                                <a href="/admin/category/change_status/<%= category.id %>?status=true&_method=PATCH" class="bg-lightred badges text-white">Inactive</a>
+                            <%}%>
+                        </td>
+                        <td>
+                          <a class="me-3" href="/admin/category/edit/<%= category.id %>">
+                            <img
+                              src="/static/backend/assets/img/icons/edit.svg"
+                              alt="img"
+                            />
+                          </a>
+                          <a class="me-3 confirm-text" href="/admin/category/delete/<%= category.id %>">
+                            <img
+                              src="/static/backend/assets/img/icons/delete.svg"
+                              alt="img"
+                            />
+                          </a>
+                        </td>
+                      </tr>
+                <% }%>
+              <% }%>
           </tbody>
         </table>
       </div>

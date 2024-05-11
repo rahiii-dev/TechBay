@@ -26,6 +26,7 @@ app.set('layout', './layouts/default');
 app.use(expressLayouts);
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use('/src/uploads/', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({extended : true}));
 
 app.use(session({
@@ -42,7 +43,7 @@ const methodOvveriding = require('./middleware/methodOverrideMiddleware');
 const layoutChanger = require('./middleware/layoutChangeMiddleware');
 const morgan = require('morgan');
 
-app.use(methodOvveriding('_methhod'));
+app.use(methodOvveriding('_method'));
 
 if(DEVLOPEMENT){
     app.use(morgan('dev'));

@@ -13,7 +13,7 @@
     />
     <meta name="author" content="Dreamguys - Bootstrap Admin Template" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Dreams Pos admin template</title>
+    <title><%= locals.title || 'Tech Bay | Admin' %></title>
 
     <link
       rel="shortcut icon"
@@ -219,5 +219,44 @@
     <script src="/static/backend/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
     <script src="/static/backend/assets/js/script.js"></script>
+
+    <script>
+      const inputImagePreviewer = document.querySelector('.input-image-previewer');
+      const productImageInput = document.querySelector('.productImageInput');
+      // const productImage = document.querySelector('.productviewsimg img');
+      // const productName = document.querySelector('.productviewsname h2');
+    
+      // productImageInput.addEventListener('change', function(event) {
+      //   const file = event.target.files[0];
+
+      //   if (file) {
+      //     productImage.src = URL.createObjectURL(file);
+      //     productName.textContent = file.name;
+      //   }
+      // });
+      productImageInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+          inputImagePreviewer.innerHTML = `<li class="ps-0">
+                  <div class="productviews">
+                    <div class="productviewsimg">
+                      <img
+                        src="${URL.createObjectURL(file)}"
+                        alt="image"
+                      />
+                    </div>
+                    <div class="productviewscontent">
+                      <div class="productviewsname">
+                        <h2>${ file.name}</h2>
+                      </div>
+                      <!-- <a href="javascript:void(0);" class="hideset">x</a> -->
+                    </div>
+                  </div>
+                </li>`;
+        }
+      });
+    </script>
+    
   </body>
 </html>
