@@ -59,13 +59,14 @@ const adminAuthRouter = require('./router/admin/adminAuthRouter');
 app.use(layoutChanger('layouts/userLayout'))
 app.use(shopRouter);
 app.use(shopAuthRouter);
-app.use(layoutChanger('layouts/default'))
+app.use(layoutChanger('layouts/adminAuthLayout'))
 app.use('/admin', adminAuthRouter);
+app.use(layoutChanger('layouts/adminLayout'))
 app.use('/admin', adminRouter);
 
 // 404 
 app.use((req, res, next) => {
-    res.status(404).send('<h1>Page Not Found</h1>');
+    res.status(404).render('404', {layout: 'layouts/default'});
 });
 
 // Error Handling Middleware

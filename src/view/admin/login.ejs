@@ -1,15 +1,89 @@
-<div class="container">
-    <h1>Login for Admin</h1>
-    <form action="/admin/login" method="post">
-        <input type="email" name="email" placeholder="Email" value="<%= locals.errorObj?.email || '' %>"><br>
-        <% if(locals.errorObj && errorObj.emailError) { %>
-            <p class="text-danger"><%= errorObj.emailError %></p>
-        <% } %>
-        <input type="password" name="password" placeholder="Password"><br>
-        <% if(locals.errorObj && errorObj.passwordError) { %>
-            <p class="text-danger"><%= errorObj.passwordError %></p>
-        <% } %>
-        <button type="submit">Login</button>
+<div class="login-wrapper">
+    <div class="login-content">
+      <div class="login-userset">
+        <div class="login-logo">
+          <img src="/static/logo/logo.png" alt="img" />
+        </div>
+        <div class="login-userheading">
+          <h3>Admin Login</h3>
+        </div>
 
-    </form>
-</div>
+        <form action="/admin/login" method="post">
+            <div class="form-login">
+              <label>Email</label>
+              <div class="form-addons">
+                <input name="email" type="text" placeholder="Enter your email address" value="<%= locals.errorObj?.email || '' %>" />
+                <img src="/static/backend/assets/img/icons/mail.svg" alt="img" />
+              </div>
+              <% if(locals.errorObj && errorObj.emailError) { %>
+                <p class="text-danger"><%= errorObj.emailError %></p>
+              <% } %>
+            </div>
+            <div class="form-login">
+              <label>Password</label>
+              <div class="pass-group">
+                <input
+                  name="password"
+                  type="password"
+                  class="pass-input"
+                  placeholder="Enter your password"
+                />
+                <span class="fas toggle-password fa-eye-slash"></span>
+              </div>
+              <% if(locals.errorObj && errorObj.passwordError) { %>
+                <p class="text-danger"><%= errorObj.passwordError %></p>
+             <% } %>
+            </div>
+            <div class="form-login">
+              <div class="alreadyuser">
+                <h4>
+                  <a href="forgetpassword.html" class="hover-a text-dark"
+                    >Forgot Password?</a
+                  >
+                </h4>
+              </div>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-dark">Login</button>
+            </div>
+        </form>
+        
+        <!-- <div class="signinform text-center">
+          <h4>
+            Don’t have an account?
+            <a href="signup.html" class="hover-a">Sign Up</a>
+          </h4>
+        </div> -->
+        <!-- <div class="form-setlogin">
+          <h4>Or sign up with</h4>
+        </div> -->
+        <!-- <div class="form-sociallink">
+          <ul>
+            <li>
+              <a href="javascript:void(0);">
+                <img
+                  src="/static/backend/assets/img/icons/google.png"
+                  class="me-2"
+                  alt="google"
+                />
+                Sign Up using Google
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">
+                <img
+                  src="/static/backend/assets/img/icons/facebook.png"
+                  class="me-2"
+                  alt="google"
+                />
+                Sign Up using Facebook
+              </a>
+            </li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+    <div class="login-img">
+      <img src="/static/backend/assets/img/login-image.jpg" alt="img" style="object-fit: cover;"/>
+    </div>
+  </div>

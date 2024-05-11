@@ -22,7 +22,7 @@ module.exports = {
                 const {email, password} = req.body;
                 const adminObj = await Admin.findOne({email})
                 if (adminObj) {
-                    const match = bcrypt.compare(password, adminObj.password);
+                    const match = await bcrypt.compare(password, adminObj.password);
         
                     if (match) {
                         req.session.isAuthenticated = true;
