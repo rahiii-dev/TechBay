@@ -67,25 +67,28 @@
                         <td><%= category.description %></td>
                         <td>
                             <% if(category.isActive){%>
-                                <a href="/admin/category/change_status/<%= category.id %>?status=false&_method=PATCH" class="bg-lightgreen badges text-white">Active</a>
+                                <a href="javascript:void(0);" class="bg-lightgreen badges text-white">Active</a>
                             <%} else {%>
-                                <a href="/admin/category/change_status/<%= category.id %>?status=true&_method=PATCH" class="bg-lightred badges text-white">Inactive</a>
+                                <a href="javascript:void(0);" class="bg-lightred badges text-white">Inactive</a>
                             <%}%>
                         </td>
                         <td>
-                          <a class="me-3" href="/admin/category/edit/<%= category.id %>">
-                            <img
-                              src="/static/backend/assets/img/icons/edit.svg"
-                              alt="img"
-                            />
-                          </a>
-                          <a class="me-3" onclick="confirmDelete('/admin/category/delete/<%= category.id %>?_method=DELETE')" href="javascript:void(0);">
-                          <!-- <a class="me-3 confirm-text" href="/admin/category/delete/<%= category.id %>?_method=DELETE"> -->
-                            <img
-                              src="/static/backend/assets/img/icons/delete.svg"
-                              alt="img"
-                            />
-                          </a>
+                          <% if(category.isActive){%>
+                            <a class="me-3" href="/admin/category/edit/<%= category.id %>">
+                              <img
+                                src="/static/backend/assets/img/icons/edit.svg"
+                                alt="img"
+                              />
+                            </a>
+                            <a class="me-3" onclick="confirmDelete('/admin/category/softdelete/<%= category.id %>?_method=PATCH')" href="javascript:void(0);">
+                              <img
+                                src="/static/backend/assets/img/icons/delete.svg"
+                                alt="img"
+                              />
+                            </a>
+                          <%} else {%>
+                            <a class="me-3 btn btn-dark text-white" href="/admin/category/restore/<%= category.id %>?_method=PATCH">Restore</a>
+                          <%}%>
                         </td>
                       </tr>
                 <% }%>

@@ -20,8 +20,7 @@ formValidator.editFormValidator,
 formErrorHandler, 
 controller.updateCategory);
 
-router.delete('/delete/:category_id', controller.deleteCategory);
-
-router.patch('/change_status/:category_id', controller.changeCategoryStatus);
+router.patch('/softdelete/:category_id', controller.softDeleteCategory);
+router.patch('/restore/:category_id', controller.restoreCategory);
 
 module.exports = router;

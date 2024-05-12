@@ -294,10 +294,10 @@
       });
 
       // confirmDelete
-      function confirmDelete(URL) {
+      function confirmDelete(URL, message = '') {
         Swal.fire({
           title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          text: `${message}`,
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#ff9f43",

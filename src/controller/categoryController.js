@@ -11,7 +11,6 @@ module.exports = {
     renderCategoryListPage : async (req, res, next) => {
         try {
             const categories = await Category.find();
-            // console.log(categories)
             return res.render('admin/category/categoryList', {title : "Tech Bay | Admin | Category Management", categories});
         } catch (error) {
             console.log("Error while Rendering Category list");
@@ -35,9 +34,8 @@ module.exports = {
             const {name, description} = req.body;
 
             console.log("name: ", name);
-            const isActive = Boolean(req.body?.isActive);
             const image = req.file?.path;
-            const newCategory = new Category({name, description, isActive, image})
+            const newCategory = new Category({name, description, image})
             await newCategory.save()
             return res.redirect('/admin/category/list')
         } catch (error) {
@@ -73,12 +71,11 @@ module.exports = {
         try {
             const id = req.params.category_id;
             const {name, description, existingImage} = req.body;
-            const isActive = Boolean(req.body?.isActive);
             let image = existingImage;
             if(req.file){
                 image = req.file?.path;
             }
-            const category = await Category.findByIdAndUpdate(id, {name, description, isActive, image});
+            const category = await Category.findByIdAndUpdate(id, {name, description, image});
             if(category){
                 return res.redirect('/admin/category/list')
             }
@@ -89,32 +86,14 @@ module.exports = {
         }
     },
     /*  
-        Route: DELETE category/delete/category_id
-        Purpose: delete a category 
+        Route: PATCH category/softdelete/:category_id
+        Purpose: Soft Delete Category
     */
-    deleteCategory : async (req, res, next) => {
+    softDeleteCategory : async (req, res, next) => {
         try {
             const id = req.params.category_id;
-            const category = await Category.findByIdAndDelete(id)
-            if(category){
-                return res.redirect('/admin/category/list')
-            }
-            return res.redirect('/404')
-        } catch (error) {
-            console.log("Error while creating Category");
-            next(error);
-        }
-    },
-    /*  
-        Route: PATCH category//change_status/:category_id?status=?
-        Purpose: change category status to active or inactive
-    */
-    changeCategoryStatus : async (req, res, next) => {
-        try {
-            const id = req.params.category_id;
-            const status = (req.query?.status == 'true') ? true : false ;
             const category = await Category.findByIdAndUpdate(id, {
-                isActive : status
+                isActive : false
             });
             
             if(category){
@@ -122,7 +101,27 @@ module.exports = {
             }
             return res.redirect('/404');
         } catch (error) {
-            console.log("Error while Inactivating Category");
+            console.log("Error while deleting Category");
+            next(error);
+        }
+    },
+    /*  
+        Route: PATCH category/restore/:category_id
+        Purpose: restore deleted Category
+    */
+    restoreCategory : async (req, res, next) => {
+        try {
+            const id = req.params.category_id;
+            const category = await Category.findByIdAndUpdate(id, {
+                isActive : true
+            });
+            
+            if(category){
+                return res.redirect('/admin/category/list')
+            }
+            return res.redirect('/404');
+        } catch (error) {
+            console.log("Error while deleting Category");
             next(error);
         }
     },
