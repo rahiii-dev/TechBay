@@ -26,7 +26,7 @@ router.post('/login',
     checkIsAdmin,
     checkNotAuthenticated, 
     formValidators.loginFormValidator,
-    formErrorHandler('user/account/login', 'Tech Bay | Login'),
+    formErrorHandler,
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login',
@@ -64,7 +64,7 @@ router.post('/register',
     checkIsAdmin,
     checkNotAuthenticated, 
     formValidators.registerFormValidator,
-    formErrorHandler('user/account/register', 'Tech Bay | Register'),
+    formErrorHandler,
     controller.createUser);
 
 // logout

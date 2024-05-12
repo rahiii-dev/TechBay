@@ -22,7 +22,7 @@ router.post('/login',
     noCaheMiddleware,
     checkAdminNotAuthenticated,
     formValidators.loginFormValidator,
-    formErrorHandler('admin/login', "Tech Bay | Admin | Login"),
+    formErrorHandler,
     controller.authenticateUser
 );
 
