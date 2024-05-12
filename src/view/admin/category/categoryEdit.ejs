@@ -16,8 +16,11 @@
               <input
                 type="text"
                 name="name"
-                value="<%= locals.category.name || '' %>"
+                value="<%= locals.errorObj?.name ? locals.errorObj?.name : (locals.category?.name || '')%>"
               />
+              <% if(locals.errorObj?.nameError){%>
+                <p class="text-danger"><%= locals.errorObj.nameError %></p>
+                <%}%>
             </div>
           </div>
           <div class="col-lg-6 col-sm-6 col-12">
@@ -26,13 +29,13 @@
               <div class="radio">
                 <label>
                   <input type="radio" name="isActive" value="true" <%=
-                  locals.category.isActive ? 'checked' : '' %> />Yes</label
+                  locals.category?.isActive ? 'checked' : '' %> />Yes</label
                 >
               </div>
               <div class="radio">
                 <label>
                   <input type="radio" name="isActive" value="false" <%=
-                  locals.category.isActive ? '' : 'checked' %> />No</label
+                  locals.category?.isActive ? '' : 'checked' %> />No</label
                 >
               </div>
             </div>
@@ -40,8 +43,7 @@
           <div class="col-lg-12">
             <div class="form-group">
               <label>Description</label>
-              <textarea name="description" class="form-control">
-<%= locals.category.description || '' %></textarea
+              <textarea name="description" class="form-control"><%= locals.errorObj?.description ? locals.errorObj?.description : (locals.category?.description || '') %></textarea
               >
             </div>
           </div>
@@ -50,7 +52,7 @@
               <label> Category Image</label>
               <div class="image-upload">
                 <input type="file" name="image" class="productImageInput" />
-                <input type="hidden" name="existingImage" value="<%= locals.category.image %>"/>
+                <input type="hidden" name="existingImage" value="<%= locals.category?.image %>"/>
                 <div class="image-uploads">
                   <img
                     src="/static/backend/assets/img/icons/upload.svg"
@@ -69,13 +71,13 @@
                   <div class="productviews">
                     <div class="productviewsimg">
                       <img
-                        src="/<%= locals.category.image %>"
-                        alt="/<%= locals.category.name %>"
+                        src="/<%= locals.category?.image %>"
+                        alt="/<%= locals.category?.name %>"
                       />
                     </div>
                     <div class="productviewscontent">
                       <div class="productviewsname">
-                        <h2><%= locals.imageName %></h2>
+                        <h2><%= locals?.imageName %></h2>
                       </div>
                       <!-- <a href="javascript:void(0);" class="hideset">x</a> -->
                     </div>

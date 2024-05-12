@@ -1,15 +1,24 @@
 const router = require('express').Router();
 
 const controller = require('../../controller/categoryController');
-const upload = require('../../config/multerConfig');
+const formValidator = require('../../validators/categoryFormValidators');
+const formErrorHandler = require('../../middleware/formErrorHandler');
 
 router.get('/list', controller.renderCategoryListPage);
 
 router.get('/add', controller.renderCategoryAddPage);
-router.post('/add', upload.single('image'), controller.createCategory);
+router.post('/add',
+     formValidator.addOrEditFormValidator,
+     formValidator.addFormValidator,
+     formErrorHandler,
+     controller.createCategory);
 
 router.get('/edit/:category_id', controller.renderUpdateCategorPage);
-router.put('/edit/:category_id', upload.single('image'), controller.updateCategory);
+router.put('/edit/:category_id',
+formValidator.addOrEditFormValidator,
+formValidator.editFormValidator,
+formErrorHandler, 
+controller.updateCategory);
 
 router.delete('/delete/:category_id', controller.deleteCategory);
 

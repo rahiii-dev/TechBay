@@ -1,3 +1,4 @@
+const { log } = require('node:console');
 const Category = require('../model/categoryModel');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -22,7 +23,8 @@ module.exports = {
         Purpose: Render the category add page
     */
     renderCategoryAddPage : (req, res) => {
-        return res.render('admin/category/categoryAdd', {title : "Tech Bay | Admin | Category Management"});
+        const errorObj = req.flash('errorObj')[0];
+        return res.render('admin/category/categoryAdd', {title : "Tech Bay | Admin | Category Management", errorObj});
     },
     /*  
         Route: POST category/add
@@ -31,6 +33,8 @@ module.exports = {
     createCategory : async (req, res, next) => {
         try {
             const {name, description} = req.body;
+
+            console.log("name: ", name);
             const isActive = Boolean(req.body?.isActive);
             const image = req.file?.path;
             const newCategory = new Category({name, description, isActive, image})
@@ -47,11 +51,12 @@ module.exports = {
     */
     renderUpdateCategorPage : async (req, res, next) => {
         try {
+            const errorObj = req.flash('errorObj')[0];
             const id = req.params.category_id;
             const category = await Category.findById(id);
             if(category){
                 const imageName = path.basename(category.image);
-                return res.render('admin/category/categoryEdit', {title : "Tech Bay | Admin | Category Management", category, imageName});
+                return res.render('admin/category/categoryEdit', {title : "Tech Bay | Admin | Category Management", category, imageName, errorObj});
             }
 
             return res.redirect('/404')

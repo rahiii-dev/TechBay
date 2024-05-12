@@ -1,4 +1,4 @@
-const {body, validationResult} = require('express-validator');
+const {body} = require('express-validator');
 
 module.exports = {
     loginFormValidator : [
@@ -7,6 +7,7 @@ module.exports = {
         body('password')
             .notEmpty().withMessage('Please provide a password')
     ],
+    
     registerFormValidator : [
         body('email')
             .notEmpty().withMessage('Please provide an email')

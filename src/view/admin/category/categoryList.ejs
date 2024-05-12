@@ -17,79 +17,28 @@
 
   <div class="card">
     <div class="card-body">
+
       <div class="table-top">
         <div class="search-set">
             <form action="">
                 <div class="searchinputs show">
-                    <input type="text" placeholder="Search Here ...">
+                    <input type="text" name="search" placeholder="Search Here ..." role="search">
                     <div class="search-addon">
                       <span style="background: transparent;"><img src="/static/backend/assets/img/icons/search-white.svg" alt="img"></span>
                     </div>
                   </div>
             </form>
-          <!-- <div class="search-path">
-            <a class="btn btn-filter" id="filter_search">
-              <img
-                src="/static/backend/assets/img/icons/filter.svg"
-                alt="img"
-              />
-              <span
-                ><img
-                  src="/static/backend/assets/img/icons/closes.svg"
-                  alt="img"
-              /></span>
-            </a>
-          </div>
-          <div class="search-input">
-            <a class="btn btn-searchset"
-              ><img
-                src="/static/backend/assets/img/icons/search-white.svg"
-                alt="img"
-            /></a>
-          </div> -->
         </div>
-        <div class="wordset"></div>
+        <!-- <div class="form-group">
+          <form action="">
+            <select name="status" class="select" style="width: 300px;">
+              <option value="all">All</option>
+              <option value="true">Active</option>
+              <option value="false">InActive</option>
+            </select>
+          <form action="">
+        </div> -->
       </div>
-
-      <!-- <div class="card" id="filter_inputs">
-        <div class="card-body pb-0">
-          <div class="row">
-            <div class="col-lg-2 col-sm-6 col-12">
-              <div class="form-group">
-                <select class="select">
-                  <option>Choose Category</option>
-                  <option>Computers</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-2 col-sm-6 col-12">
-              <div class="form-group">
-                <select class="select">
-                  <option>Choose Sub Category</option>
-                  <option>Fruits</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-2 col-sm-6 col-12">
-              <div class="form-group">
-                <select class="select">
-                  <option>Choose Sub Brand</option>
-                  <option>Iphone</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-              <div class="form-group">
-                <a class="btn btn-filters ms-auto"
-                  ><img
-                    src="/static/backend/assets/img/icons/search-whites.svg"
-                    alt="img"
-                /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <div class="table-responsive">
         <table class="table">
@@ -110,6 +59,7 @@
                             <img
                               src="/<%= category.image %>"
                               alt="/<%= category.name %>"
+                              style="object-fit: contain;"
                             />
                           </a>
                           <a href="javascript:void(0);"><%= category.name %></a>
@@ -143,6 +93,7 @@
           </tbody>
         </table>
       </div>
+
     </div>
   </div>
 </div>

@@ -8,12 +8,15 @@
 
   <div class="card">
     <div class="card-body">
-      <form method="post" enctype="multipart/form-data">
+      <form method="post" action="" enctype="multipart/form-data">
         <div class="row">
           <div class="col-lg-6 col-sm-6 col-12">
             <div class="form-group">
               <label>Category Name</label>
-              <input type="text" name="name"/>
+              <input type="text" name='name' value="<%= locals.errorObj?.name || ''%>"/>
+              <% if(locals.errorObj?.nameError){%>
+              <p class="text-danger"><%= locals.errorObj.nameError %></p>
+              <%}%>
             </div>
           </div>
           <div class="col-lg-6 col-sm-6 col-12">
@@ -31,11 +34,7 @@
               </div>
               <div class="radio">
                 <label>
-                  <input
-                    type="radio"
-                    name="isActive"
-                    value="false"
-                  />No</label
+                  <input type="radio" name="isActive" value="false" />No</label
                 >
               </div>
             </div>
@@ -43,14 +42,14 @@
           <div class="col-lg-12">
             <div class="form-group">
               <label>Description</label>
-              <textarea name="description" class="form-control"></textarea>
+              <textarea name="description" class="form-control"><%=locals.errorObj?.description || ''%></textarea>
             </div>
           </div>
           <div class="col-lg-12">
             <div class="form-group">
               <label> Category Image</label>
               <div class="image-upload">
-                <input type="file" name="image" class="productImageInput"/>
+                <input type="file" name="image" class="productImageInput" accept="image/png, image/gif, image/jpeg"/>
                 <div class="image-uploads">
                   <img
                     src="/static/backend/assets/img/icons/upload.svg"
@@ -59,14 +58,15 @@
                   <h4>Drag and drop a file to upload</h4>
                 </div>
               </div>
+              <% if(locals.errorObj?.imageError){%>
+              <p class="text-danger"><%= locals.errorObj?.imageError %></p>
+              <%}%>
             </div>
           </div>
 
           <div class="col-12">
             <div class="product-list">
-              <ul class="row input-image-previewer">
-                
-              </ul>
+              <ul class="row input-image-previewer"></ul>
             </div>
           </div>
 

@@ -1,15 +1,16 @@
 const { validationResult } = require("express-validator");
 
-const handleFormValidation = (renderPagePath, renderPageTiltle = "Tech Bay") => {
-  return (req, res, next) => {
+const handleFormValidation = (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       const errorObj = {};
 
       errors.array().forEach((error) => {
+        if(!errorObj[error.path]){
           errorObj[error.path + "Error"] = error.msg;
           errorObj[error.path] = error.value;
+        }
       });
 
       for (let key in req.body) {
@@ -18,11 +19,12 @@ const handleFormValidation = (renderPagePath, renderPageTiltle = "Tech Bay") => 
         }
       }
 
-      return res.render(renderPagePath, { title: renderPageTiltle, errorObj });
+      req.flash("errorObj", errorObj);
+      const reqUrl = req.originalUrl.split("?")[0];
+      return res.redirect(reqUrl);
     }
 
     next();
   };
-}
 
 module.exports = handleFormValidation;
