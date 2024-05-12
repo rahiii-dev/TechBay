@@ -4,7 +4,8 @@ const controller = require('../../controller/adminAuthController');
 
 const noCaheMiddleware = require('../../middleware/noCacheMiddleware');
 const authMiddleware = require('../../middleware/authMiddlewares')
-const formValidators = require('../../validators/formValidators');
+const formValidators = require('../../validators/AuthformValidators');
+const formErrorHandler = require('../../middleware/formErrorHandler');
 
 const checkAdminNotAuthenticated = authMiddleware.checkAdminNotAuthenticated('/admin/dashboard');
 const checkIsAutheticatedAndUser = authMiddleware.checkIsAutheticatedAndUser('/');
@@ -21,7 +22,7 @@ router.post('/login',
     noCaheMiddleware,
     checkAdminNotAuthenticated,
     formValidators.loginFormValidator,
-    formValidators.handleFormValidation('admin/login', "Tech Bay | Admin | Login"),
+    formErrorHandler('admin/login', "Tech Bay | Admin | Login"),
     controller.authenticateUser
 );
 

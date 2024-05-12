@@ -5,12 +5,13 @@ const controller = require('../../controller/shopAuthController');
 
 const noCaheMiddleware = require('../../middleware/noCacheMiddleware');
 const authMiddleware = require('../../middleware/authMiddlewares')
+const formErrorHandler = require('../../middleware/formErrorHandler');
 
 const checkAuthenticated = authMiddleware.checkAuthenticated('/login');
 const checkNotAuthenticated = authMiddleware.checkNotAuthenticated('/');
 const checkIsAdmin = authMiddleware.checkIsAdmin('/admin');
 
-const formValidators = require('../../validators/formValidators');
+const formValidators = require('../../validators/AuthformValidators');
 
 router.use(['/login', '/register', '/logout'], noCaheMiddleware);
 
@@ -25,7 +26,7 @@ router.post('/login',
     checkIsAdmin,
     checkNotAuthenticated, 
     formValidators.loginFormValidator,
-    formValidators.handleFormValidation('user/account/login', 'Tech Bay | Login'),
+    formErrorHandler('user/account/login', 'Tech Bay | Login'),
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login',
@@ -63,7 +64,7 @@ router.post('/register',
     checkIsAdmin,
     checkNotAuthenticated, 
     formValidators.registerFormValidator,
-    formValidators.handleFormValidation('user/account/register', 'Tech Bay | Register'), 
+    formErrorHandler('user/account/register', 'Tech Bay | Register'),
     controller.createUser);
 
 // logout
