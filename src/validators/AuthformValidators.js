@@ -29,35 +29,4 @@ module.exports = {
             })
             .withMessage('Passwords do not match'),
     ],
-
-    createObjectofError : (errors) => {
-        const errorObj = {};
-
-        errors.array().forEach(error => {
-            if (!errorObj[error.path]) {
-                errorObj[error.path + 'Error'] = error.msg;
-                errorObj[error.path] = error.value;
-            }
-        });
-
-        return errorObj;
-    },
-
-    handleFormValidation : function(renderPagePath, renderPageTiltle = 'Tech Bay') {
-        return (req, res, next) => {
-            const errors = validationResult(req);
-
-            if (!errors.isEmpty()) {
-                const errorObj = this.createObjectofError(errors);
-                for(let key in req.body){
-                    if(!errorObj[key] && req.body[key]){
-                        errorObj[key] = req.body[key];
-                    }
-                }
-                return res.render(renderPagePath, {title : renderPageTiltle, errorObj});
-            }
-
-            next();
-        }
-    }
 }
