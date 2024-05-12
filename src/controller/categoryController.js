@@ -56,7 +56,7 @@ module.exports = {
 
             return res.redirect('/404')
         } catch (error) {
-            console.log("Error while creating Category");
+            console.log("Error while rendering category update page");
             next(error);
         }
     },
@@ -74,6 +74,23 @@ module.exports = {
                 image = req.file?.path;
             }
             const category = await Category.findByIdAndUpdate(id, {name, description, isActive, image});
+            if(category){
+                return res.redirect('/admin/category/list')
+            }
+            return res.redirect('/404')
+        } catch (error) {
+            console.log("Error while Updating Category");
+            next(error);
+        }
+    },
+    /*  
+        Route: DELETE category/delete/category_id
+        Purpose: delete a category 
+    */
+    deleteCategory : async (req, res, next) => {
+        try {
+            const id = req.params.category_id;
+            const category = await Category.findByIdAndDelete(id)
             if(category){
                 return res.redirect('/admin/category/list')
             }

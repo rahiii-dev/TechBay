@@ -21,19 +21,31 @@
       href="/static/backend/assets/img/favicon.jpg"
     />
 
-    <link rel="stylesheet" href="/static/backend/assets/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="/static/backend/assets/css/bootstrap.min.css"
+    />
 
     <link rel="stylesheet" href="/static/backend/assets/css/animate.css" />
 
-    <link rel="stylesheet" href="/static/backend/assets/plugins/select2/css/select2.min.css" />
+    <link
+      rel="stylesheet"
+      href="/static/backend/assets/plugins/select2/css/select2.min.css"
+    />
 
-    <link rel="stylesheet" href="/static/backend/assets/css/dataTables.bootstrap4.min.css" />
+    <link
+      rel="stylesheet"
+      href="/static/backend/assets/css/dataTables.bootstrap4.min.css"
+    />
 
     <link
       rel="stylesheet"
       href="/static/backend/assets/plugins/fontawesome/css/fontawesome.min.css"
     />
-    <link rel="stylesheet" href="/static/backend/assets/plugins/fontawesome/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="/static/backend/assets/plugins/fontawesome/css/all.min.css"
+    />
 
     <link rel="stylesheet" href="/static/backend/assets/css/style.css" />
   </head>
@@ -43,7 +55,7 @@
     </div>
 
     <div class="main-wrapper">
-      <!-- ====Header Bar==== -->      
+      <!-- ====Header Bar==== -->
       <div class="header">
         <div class="header-left active">
           <a href="/admin" class="logo">
@@ -71,12 +83,16 @@
                   <input type="text" placeholder="Search Here ..." />
                   <div class="search-addon">
                     <span
-                      ><img src="/static/backend/assets/img/icons/closes.svg" alt="img"
+                      ><img
+                        src="/static/backend/assets/img/icons/closes.svg"
+                        alt="img"
                     /></span>
                   </div>
                 </div>
                 <a class="btn" id="searchdiv"
-                  ><img src="/static/backend/assets/img/icons/search.svg" alt="img"
+                  ><img
+                    src="/static/backend/assets/img/icons/search.svg"
+                    alt="img"
                 /></a>
               </form>
             </div>
@@ -89,7 +105,9 @@
               data-bs-toggle="dropdown"
             >
               <span class="user-img"
-                ><img src="/static/backend/assets/img/profiles/avator1.jpg" alt="" />
+                ><img
+                  src="/static/backend/assets/img/profiles/avator1.jpg"
+                  alt="" />
                 <span class="status online"></span
               ></span>
             </a>
@@ -137,7 +155,6 @@
       </div>
       <!-- ====End Header Bar==== -->
 
-
       <!-- ====Side Bar==== -->
       <div class="sidebar" id="sidebar">
         <div class="sidebar-inner slimscroll">
@@ -146,30 +163,55 @@
               <!-- ==== Dashboard ==== -->
               <li class="<%= locals.menu == 'dashboard' ? 'active' : '' %>">
                 <a href="/admin/dashboard"
-                  ><img src="/static/backend/assets/img/icons/dashboard.svg" alt="img" /><span>
-                    Dashboard</span
-                  >
+                  ><img
+                    src="/static/backend/assets/img/icons/dashboard.svg"
+                    alt="img"
+                  /><span> Dashboard</span>
                 </a>
               </li>
               <!-- ==== Product ==== -->
-                <li class="submenu">
-                  <a  href="javascript:void(0);" class="<%= locals.menu == 'product' ? 'active' : ''%>">
-                      <img src="/static/backend/assets/img/icons/product.svg" alt="img" />
-                      <span>Product</span>
-                      <span class="menu-arrow"></span
-                  ></a>
-                  <ul>
-                    <li><a href="productlist.html">Product List</a></li>
-                    <li><a href="addproduct.html">Add Product</a></li>
-                  </ul>
-                </li>
+              <li class="submenu">
+                <a
+                  href="javascript:void(0);"
+                  class="<%= locals.menu == 'product' ? 'active' : ''%>"
+                >
+                  <img
+                    src="/static/backend/assets/img/icons/product.svg"
+                    alt="img" />
+                  <span>Product</span>
+                  <span class="menu-arrow"></span
+                ></a>
+                <ul>
+                  <li><a href="productlist.html">Product List</a></li>
+                  <li><a href="addproduct.html">Add Product</a></li>
+                </ul>
+              </li>
 
               <!-- ==== Category ==== -->
               <li class="submenu">
-                <a href="javascript:void(0);" class="<%= locals.menu == 'category' ? 'active' : ''%>">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                <span>
-                    Category</span>
+                <a
+                  href="javascript:void(0);"
+                  class="<%= locals.menu == 'category' ? 'active' : ''%>"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-box"
+                  >
+                    <path
+                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                    ></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                  </svg>
+                  <span> Category</span>
                   <span class="menu-arrow"></span
                 ></a>
                 <ul>
@@ -179,9 +221,12 @@
               </li>
               <!-- ==== User ==== -->
               <li class="submenu">
-                <a href="javascript:void(0);" class="<%= locals.menu == 'user' ? 'active' : ''%>"><img src="/static/backend/assets/img/icons/users1.svg" alt="img" /><span>
-                  Users</span
-                >
+                <a
+                  href="javascript:void(0);"
+                  class="<%= locals.menu == 'user' ? 'active' : ''%>"
+                  ><img
+                    src="/static/backend/assets/img/icons/users1.svg"
+                    alt="img" /><span> Users</span>
                   <span class="menu-arrow"></span
                 ></a>
                 <ul>
@@ -196,8 +241,8 @@
       <!-- ==== End Side Bar==== -->
 
       <div class="page-wrapper">
-          <!-- ====App Content==== -->
-            <%- body %>
+        <!-- ====App Content==== -->
+        <%- body %>
         <!-- ====End App Content==== -->
       </div>
     </div>
@@ -221,20 +266,11 @@
     <script src="/static/backend/assets/js/script.js"></script>
 
     <script>
-      const inputImagePreviewer = document.querySelector('.input-image-previewer');
-      const productImageInput = document.querySelector('.productImageInput');
-      // const productImage = document.querySelector('.productviewsimg img');
-      // const productName = document.querySelector('.productviewsname h2');
-    
-      // productImageInput.addEventListener('change', function(event) {
-      //   const file = event.target.files[0];
-
-      //   if (file) {
-      //     productImage.src = URL.createObjectURL(file);
-      //     productName.textContent = file.name;
-      //   }
-      // });
-      productImageInput.addEventListener('change', function(event) {
+      const inputImagePreviewer = document.querySelector(
+        ".input-image-previewer"
+      );
+      const productImageInput = document.querySelector(".productImageInput");
+      productImageInput.addEventListener("change", function (event) {
         const file = event.target.files[0];
 
         if (file) {
@@ -248,7 +284,7 @@
                     </div>
                     <div class="productviewscontent">
                       <div class="productviewsname">
-                        <h2>${ file.name}</h2>
+                        <h2>${file.name}</h2>
                       </div>
                       <!-- <a href="javascript:void(0);" class="hideset">x</a> -->
                     </div>
@@ -256,7 +292,23 @@
                 </li>`;
         }
       });
+
+      // confirmDelete
+      function confirmDelete(URL) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#ff9f43",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = URL;
+          }
+        });
+      }
     </script>
-    
   </body>
 </html>
