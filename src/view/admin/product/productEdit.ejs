@@ -1,0 +1,103 @@
+<div class="content">
+    <div class="page-header">
+      <div class="page-title">
+        <h4>Product Edit</h4>
+        <h6>Edit your product</h6>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Product Name</label>
+              <input type="text" name="product_name"/>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Category</label>
+              <select class="select" name="category">
+                <option value="">Choose Category</option>
+                <option value="laptop">Computers</option>
+              </select>
+            </div>
+          </div>
+        
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Unit</label>
+              <select class="select" name="unit">
+                <option value="">Choose Unit</option>
+                <option value="PCS">PCS</option>
+                <option value="NOS">NOS</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Quantity</label>
+              <input type="text" name="quantity"/>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" name="description"></textarea>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Discount</label>
+              <select class="select" name="discount">
+                <option>Percentage</option>
+                <option>10%</option>
+                <option>20%</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label>Price</label>
+              <input type="text" name="price"/>
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-3 col-sm-6 col-12">
+            <div class="form-group">
+              <label> Status</label>
+              <select class="select">
+                <option>Closed</option>
+                <option>Open</option>
+              </select>
+            </div>
+          </div> -->
+
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label> Product Image</label>
+              <div class="image-upload">
+                <input type="file" name="images" multiple/>
+                <div class="image-uploads">
+                  <img src="/static/backend/assets/img/icons/upload.svg" alt="img" />
+                  <h4>Drag and drop a file to upload</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <button type="submit" class="btn btn-submit me-2">Submit</button>
+            <a href="/admin/product/list" class="btn btn-cancel">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

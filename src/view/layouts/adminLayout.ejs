@@ -47,6 +47,18 @@
       href="/static/backend/assets/plugins/fontawesome/css/all.min.css"
     />
 
+    <% if(locals.menu == 'product'){%>
+    <link
+      rel="stylesheet"
+      href="/static/backend/assets/plugins/owlcarousel/owl.carousel.min.css"
+    />
+    <%}%>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/cropperjs/dist/cropper.css"
+    />
+
     <link rel="stylesheet" href="/static/backend/assets/css/style.css" />
   </head>
   <body>
@@ -182,8 +194,8 @@
                   <span class="menu-arrow"></span
                 ></a>
                 <ul>
-                  <li><a href="productlist.html">Product List</a></li>
-                  <li><a href="addproduct.html">Add Product</a></li>
+                  <li><a href="/admin/product/list">Product List</a></li>
+                  <li><a href="/admin/product/add">Add Product</a></li>
                 </ul>
               </li>
 
@@ -263,38 +275,67 @@
     <script src="/static/backend/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="/static/backend/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
+    <% if(locals.menu == 'product'){%>
+    <script src="/static/backend/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
+    <%}%>
+
+    <script src="https://unpkg.com/cropperjs"></script>
+
     <script src="/static/backend/assets/js/script.js"></script>
 
     <script>
-      const inputImagePreviewer = document.querySelector(
-        ".input-image-previewer"
-      );
-      const productImageInput = document.querySelector(".productImageInput");
-      productImageInput.addEventListener("change", function (event) {
+      const productImageInput = document.getElementById("image-input");
+
+      function previewImageFile(event) {
+        const inputImagePreviewer = document.querySelector(
+          ".input-image-previewer"
+        );
         const file = event.target.files[0];
 
         if (file) {
           inputImagePreviewer.innerHTML = `<li class="ps-0">
-                  <div class="productviews">
-                    <div class="productviewsimg">
-                      <img
-                        src="${URL.createObjectURL(file)}"
-                        alt="image"
-                      />
-                    </div>
-                    <div class="productviewscontent">
-                      <div class="productviewsname">
-                        <h2>${file.name}</h2>
-                      </div>
-                      <!-- <a href="javascript:void(0);" class="hideset">x</a> -->
-                    </div>
-                  </div>
-                </li>`;
+          <div class="productviews">
+            <div class="productviewsimg">
+              <img
+                src="${URL.createObjectURL(file)}"
+                alt="image"
+              />
+            </div>
+            <div class="productviewscontent">
+              <div class="productviewsname">
+                <h2>${file.name}</h2>
+              </div>
+              <!-- <a href="javascript:void(0);" class="hideset">x</a> -->
+            </div>
+          </div>
+        </li>`;
         }
-      });
+      }
+
+      // image cropper
+      function ImageCropper() {
+        var imageContainer = document.getElementById("imageContainer");
+
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          imageContainer.innerHTML =
+            '<img id="croppedImage" src="' + e.target.result + '" />';
+          var cropper = new Cropper(
+            imageContainer.querySelector("#croppedImage"),
+            {
+              preview: true,
+              aspectRatio: 1,
+            }
+          );
+        };
+        reader.readAsDataURL(file);
+      }
+      // productImageInput.addEventListener("change", previewImageFile);
+      productImageInput.addEventListener("change", ImageCropper);
 
       // confirmDelete
-      function confirmDelete(URL, message = '') {
+      function confirmDelete(URL, message = "") {
         Swal.fire({
           title: "Are you sure?",
           text: `${message}`,

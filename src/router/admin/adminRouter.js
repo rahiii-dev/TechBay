@@ -33,6 +33,9 @@ router.get('/dashboard',
 );
 
 const categoryRouter = require('./categoryRouter');
+const productRouter = require('./productRouter');
+
 router.use('/category', menuChangerMiddleware('category'), categoryRouter);
+router.use('/product', menuChangerMiddleware('product'), productRouter);
 
 module.exports = router;
