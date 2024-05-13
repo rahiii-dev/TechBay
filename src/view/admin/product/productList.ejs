@@ -139,35 +139,41 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="productimgname">
-                  <a href="javascript:void(0);" class="product-img">
-                    <img
-                      src="/static/backend/assets/img/product/product1.jpg"
-                      alt="product"
-                    />
-                  </a>
-                  <a href="javascript:void(0);">Macbook pro</a>
-                </td>
-                <td>Computers</td>
-                <td>1500.00</td>
-                <td>pc</td>
-                <td>100.00</td>
-                <td>
-                    <a href="javascript:void(0);" class="bg-lightgreen badges text-white">Active</a>
-                </td>
-                <td>
-                  <a class="me-3" href="/admin/product/product_id">
-                    <img src="/static/backend/assets/img/icons/eye.svg" alt="img" />
-                  </a>
-                  <a class="me-3" href="/admin/product/edit/product_id">
-                    <img src="/static/backend/assets/img/icons/edit.svg" alt="img" />
-                  </a>
-                  <a class="confirm-text" href="javascript:void(0);">
-                    <img src="/static/backend/assets/img/icons/delete.svg" alt="img" />
-                  </a>
-                </td>
-              </tr>
+                <%for(product of locals.products){%>
+                    <tr>
+                      <td class="productimgname">
+                        <a href="javascript:void(0);" class="product-img">
+                          <img
+                            src="/<%= product.images[0]%>"
+                            alt="product"
+                          />
+                        </a>
+                        <a href="javascript:void(0);"><%= product.product_name%></a>
+                      </td>
+                      <td><%= product.category.name%></td>
+                      <td><%= product.price%></td>
+                      <td><%= product.unit%></td>
+                      <td><%= product.quantity%></td>
+                      <td>
+                        <% if(product.isActive == true){%>
+                            <a href="javascript:void(0);" class="bg-lightgreen badges text-white">Active</a>
+                        <% } else{%>
+                            <a href="javascript:void(0);" class="bg-lightred badges text-white">Inactive</a>
+                        <%}%>                        
+                      </td>
+                      <td>
+                        <a class="me-3" href="/admin/product/<%= product.id%>">
+                          <img src="/static/backend/assets/img/icons/eye.svg" alt="img" />
+                        </a>
+                        <a class="me-3" href="/admin/product/edit/<%= product.id%>">
+                          <img src="/static/backend/assets/img/icons/edit.svg" alt="img" />
+                        </a>
+                        <a class="confirm-text" href="javascript:void(0);">
+                          <img src="/static/backend/assets/img/icons/delete.svg" alt="img" />
+                        </a>
+                      </td>
+                    </tr>
+              <%}%>
             </tbody>
           </table>
         </div>
