@@ -47,6 +47,21 @@
       href="/static/backend/assets/plugins/fontawesome/css/all.min.css"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+      integrity="sha512-UtLOu9C7NuThQhuXXrGwx9Jb/z9zPQJctuAgNUBK3Z6kkSYT9wJ+2+dh6klS+TDBCV9kNPBbAxbVD+vCcfGPaA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <% if(locals.menu == 'product'){%>
+      <link
+      rel="stylesheet"
+      href="/static/backend/assets/plugins/owlcarousel/owl.carousel.min.css"
+      />
+    <%}%>
+
     <link rel="stylesheet" href="/static/backend/assets/css/style.css" />
   </head>
   <body>
@@ -270,13 +285,9 @@
     <script src="/static/backend/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="/static/backend/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
-   
-
     <% if(locals.menu == 'product'){%>
-    <script src="/static/backend/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
+      <script src="/static/backend/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
     <%}%>
-
-    <script src="https://unpkg.com/cropperjs"></script>
 
     <script src="/static/backend/assets/js/script.js"></script>
 
