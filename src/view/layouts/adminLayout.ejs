@@ -47,6 +47,13 @@
       href="/static/backend/assets/plugins/fontawesome/css/all.min.css"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+      integrity="sha512-UtLOu9C7NuThQhuXXrGwx9Jb/z9zPQJctuAgNUBK3Z6kkSYT9wJ+2+dh6klS+TDBCV9kNPBbAxbVD+vCcfGPaA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="/static/backend/assets/css/style.css" />
   </head>
   <body>
@@ -247,6 +254,13 @@
       </div>
     </div>
 
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"
+    integrity="sha512-JyCZjCOZoyeQZSd5+YEAcFgz2fowJ1F1hyJOXgtKu4llIa0KneLcidn5bwfutiehUTiOuK87A986BZJMko0eWQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
     <script src="/static/backend/assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="/static/backend/assets/js/feather.min.js"></script>
@@ -263,38 +277,79 @@
     <script src="/static/backend/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="/static/backend/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
+   
+
     <script src="/static/backend/assets/js/script.js"></script>
 
     <script>
-      const inputImagePreviewer = document.querySelector(
-        ".input-image-previewer"
+      const inputImagePreviewer = document.getElementById(
+        "input-image-previewer"
       );
       const productImageInput = document.querySelector(".productImageInput");
-      productImageInput.addEventListener("change", function (event) {
-        const file = event.target.files[0];
 
-        if (file) {
-          inputImagePreviewer.innerHTML = `<li class="ps-0">
-                  <div class="productviews">
-                    <div class="productviewsimg">
-                      <img
-                        src="${URL.createObjectURL(file)}"
-                        alt="image"
-                      />
-                    </div>
-                    <div class="productviewscontent">
-                      <div class="productviewsname">
-                        <h2>${file.name}</h2>
-                      </div>
-                      <!-- <a href="javascript:void(0);" class="hideset">x</a> -->
-                    </div>
-                  </div>
-                </li>`;
-        }
-      });
+      if (productImageInput) {
+
+        let MAXIMUM_IMAGE_INPUT = productImageInput.getAttribute('data-max-files') ? parseInt(productImageInput.getAttribute('data-max-files')) : 1;
+
+        productImageInput.addEventListener("change", function (event) {
+          
+          const croppedFileArray = [];
+          inputImagePreviewer.innerHTML = "";
+          const files = event.target.files;
+          
+          if (files && files.length > 0) {
+            
+            for (let i = 0; i < MAXIMUM_IMAGE_INPUT; i++) {
+              const file = files[i];
+              const imageList = document.createElement("li");
+              imageList.innerHTML = `<div class="p-2 border rounded">
+                        <div class="productviewsimg">
+                            <img src="${URL.createObjectURL(file)}" alt="image" />
+                        </div>
+                        <div class="pt-2">
+                            <p>${file.name}</p>
+                        </div>
+                    </div>`;
+
+              inputImagePreviewer.appendChild(imageList);
+              const image = imageList.querySelector(".productviewsimg img");
+
+              const cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 3,
+                crop : function (e) {
+                  const croppedCanvas = cropper.getCroppedCanvas({
+                    width: 500,
+                    height: 500,
+                  });
+
+                  croppedCanvas.toBlob(function (blob) {
+
+                    const croppedFile = new File([blob], `croped-${file.name}`, { type: "image/jpeg" });
+                    image.src = URL.createObjectURL(blob);
+                    croppedFileArray[i] = croppedFile;
+
+                    if (croppedFileArray.length === files.length) {
+                        const fileList = new DataTransfer();
+                        croppedFileArray.forEach((croppedFile) => {
+                            fileList.items.add(croppedFile);
+                        });
+
+                        productImageInput.files = fileList.files;
+                    }
+
+                  }, "image/jpeg");
+                }
+              });
+            }
+          }
+
+        });
+
+      }
 
       // confirmDelete
-      function confirmDelete(URL, message = '') {
+      function confirmDelete(URL, message = "") {
         Swal.fire({
           title: "Are you sure?",
           text: `${message}`,

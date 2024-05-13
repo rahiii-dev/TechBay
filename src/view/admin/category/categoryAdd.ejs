@@ -29,7 +29,7 @@
             <div class="form-group">
               <label> Category Image</label>
               <div class="image-upload">
-                <input type="file" name="image" class="productImageInput" accept="image/png, image/gif, image/jpeg"/>
+                <input type="file" name="image" class="productImageInput" accept="image/*"/>
                 <div class="image-uploads">
                   <img
                     src="/static/backend/assets/img/icons/upload.svg"
@@ -46,7 +46,7 @@
 
           <div class="col-12">
             <div class="product-list">
-              <ul class="row input-image-previewer"></ul>
+              <ul class="row" id="input-image-previewer"></ul>
             </div>
           </div>
 
