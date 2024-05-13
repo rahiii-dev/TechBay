@@ -47,18 +47,6 @@
       href="/static/backend/assets/plugins/fontawesome/css/all.min.css"
     />
 
-    <% if(locals.menu == 'product'){%>
-    <link
-      rel="stylesheet"
-      href="/static/backend/assets/plugins/owlcarousel/owl.carousel.min.css"
-    />
-    <%}%>
-
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/cropperjs/dist/cropper.css"
-    />
-
     <link rel="stylesheet" href="/static/backend/assets/css/style.css" />
   </head>
   <body>
@@ -259,6 +247,13 @@
       </div>
     </div>
 
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"
+    integrity="sha512-JyCZjCOZoyeQZSd5+YEAcFgz2fowJ1F1hyJOXgtKu4llIa0KneLcidn5bwfutiehUTiOuK87A986BZJMko0eWQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
     <script src="/static/backend/assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="/static/backend/assets/js/feather.min.js"></script>
@@ -275,6 +270,8 @@
     <script src="/static/backend/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
     <script src="/static/backend/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
+   
+
     <% if(locals.menu == 'product'){%>
     <script src="/static/backend/assets/plugins/owlcarousel/owl.carousel.min.js"></script>
     <%}%>
@@ -284,55 +281,71 @@
     <script src="/static/backend/assets/js/script.js"></script>
 
     <script>
-      const productImageInput = document.getElementById("image-input");
+      const inputImagePreviewer = document.getElementById(
+        "input-image-previewer"
+      );
+      const productImageInput = document.querySelector(".productImageInput");
 
-      function previewImageFile(event) {
-        const inputImagePreviewer = document.querySelector(
-          ".input-image-previewer"
-        );
-        const file = event.target.files[0];
+      if (productImageInput) {
 
-        if (file) {
-          inputImagePreviewer.innerHTML = `<li class="ps-0">
-          <div class="productviews">
-            <div class="productviewsimg">
-              <img
-                src="${URL.createObjectURL(file)}"
-                alt="image"
-              />
-            </div>
-            <div class="productviewscontent">
-              <div class="productviewsname">
-                <h2>${file.name}</h2>
-              </div>
-              <!-- <a href="javascript:void(0);" class="hideset">x</a> -->
-            </div>
-          </div>
-        </li>`;
-        }
-      }
+        let MAXIMUM_IMAGE_INPUT = productImageInput.getAttribute('data-max-files') ? parseInt(productImageInput.getAttribute('data-max-files')) : 1;
 
-      // image cropper
-      function ImageCropper() {
-        var imageContainer = document.getElementById("imageContainer");
+        productImageInput.addEventListener("change", function (event) {
+          
+          const croppedFileArray = [];
+          inputImagePreviewer.innerHTML = "";
+          const files = event.target.files;
+          
+          if (files && files.length > 0) {
+            
+            for (let i = 0; i < MAXIMUM_IMAGE_INPUT; i++) {
+              const file = files[i];
+              const imageList = document.createElement("li");
+              imageList.innerHTML = `<div class="p-2 border rounded">
+                        <div class="productviewsimg">
+                            <img src="${URL.createObjectURL(file)}" alt="image" />
+                        </div>
+                        <div class="pt-2">
+                            <p>${file.name}</p>
+                        </div>
+                    </div>`;
 
-        var file = e.target.files[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          imageContainer.innerHTML =
-            '<img id="croppedImage" src="' + e.target.result + '" />';
-          var cropper = new Cropper(
-            imageContainer.querySelector("#croppedImage"),
-            {
-              preview: true,
-              aspectRatio: 1,
+              inputImagePreviewer.appendChild(imageList);
+              const image = imageList.querySelector(".productviewsimg img");
+
+              const cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 3,
+                crop : function (e) {
+                  const croppedCanvas = cropper.getCroppedCanvas({
+                    width: 500,
+                    height: 500,
+                  });
+
+                  croppedCanvas.toBlob(function (blob) {
+
+                    const croppedFile = new File([blob], `croped-${file.name}`, { type: "image/jpeg" });
+                    image.src = URL.createObjectURL(blob);
+                    croppedFileArray[i] = croppedFile;
+
+                    if (croppedFileArray.length === files.length) {
+                        const fileList = new DataTransfer();
+                        croppedFileArray.forEach((croppedFile) => {
+                            fileList.items.add(croppedFile);
+                        });
+
+                        productImageInput.files = fileList.files;
+                    }
+
+                  }, "image/jpeg");
+                }
+              });
             }
-          );
-        };
-        reader.readAsDataURL(file);
+          }
+
+        });
+
       }
-      // productImageInput.addEventListener("change", previewImageFile);
-      productImageInput.addEventListener("change", ImageCropper);
 
       // confirmDelete
       function confirmDelete(URL, message = "") {

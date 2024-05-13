@@ -33,8 +33,9 @@ module.exports = {
         try {
             const {name, description} = req.body;
 
-            console.log("name: ", name);
             const image = req.file?.path;
+            console.log("File: ", req.file);
+            console.log("body : ", req.body);
             const newCategory = new Category({name, description, image})
             await newCategory.save()
             return res.redirect('/admin/category/list')
