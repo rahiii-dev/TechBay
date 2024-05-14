@@ -235,19 +235,13 @@
                 </ul>
               </li>
               <!-- ==== User ==== -->
-              <li class="submenu">
-                <a
-                  href="javascript:void(0);"
-                  class="<%= locals.menu == 'user' ? 'active' : ''%>"
+              <li class="<%= locals.menu == 'user' ? 'active' : ''%>">
+                <a href="/admin/user"
                   ><img
                     src="/static/backend/assets/img/icons/users1.svg"
-                    alt="img" /><span> Users</span>
-                  <span class="menu-arrow"></span
-                ></a>
-                <ul>
-                  <li><a href="/admin/user/list">User List</a></li>
-                  <li><a href="/admin/user/add">Add User</a></li>
-                </ul>
+                    alt="img"
+                  /><span>Users</span>
+                </a>
               </li>
             </ul>
           </div>

@@ -70,15 +70,15 @@ if (productImageInput) {
 }
 
   // confirmDelete
-  function confirmDelete(URL, message = "") {
+  function confirmDelete(URL, message = "Delete it!") {
     Swal.fire({
       title: "Are you sure?",
-      text: `${message}`,
+      text: '',
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#ff9f43",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: `${message}`,
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.href = URL;

@@ -34,8 +34,10 @@ router.get('/dashboard',
 
 const categoryRouter = require('./categoryRouter');
 const productRouter = require('./productRouter');
+const userRouter = require('./userRouter');
 
 router.use('/category', menuChangerMiddleware('category'), categoryRouter);
 router.use('/product', menuChangerMiddleware('product'), productRouter);
+router.use('/user', menuChangerMiddleware('user'), userRouter);
 
 module.exports = router;
