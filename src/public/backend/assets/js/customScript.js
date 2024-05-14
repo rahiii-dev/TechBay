@@ -2,16 +2,20 @@ const inputImagePreviewer = document.getElementById("input-image-previewer");
 const productImageInput = document.querySelector(".productImageInput");
 
 if (productImageInput) {
+    const errorEl = document.getElementById(productImageInput.getAttribute('data-error-el'));
     let MINIMUM_IMAGE_INPUT = productImageInput.getAttribute('data-min-files')? parseInt(productImageInput.getAttribute('data-min-files')) : 1;
+
     productImageInput.addEventListener("change", function (event) {
+        if(errorEl){
+            errorEl.textContent = '';
+        }
+
         const croppedFileArray = [];
         inputImagePreviewer.innerHTML = "";
         const files = event.target.files;
         let MAXIMUM_IMAGE_INPUT = productImageInput.getAttribute('data-max-files')? parseInt(productImageInput.getAttribute('data-max-files')) : files.length;
 
         if (files && files.length < MINIMUM_IMAGE_INPUT) {
-            const errorEl = document.getElementById(productImageInput.getAttribute('data-error-el'));
-            console.log(errorEl);
             if(errorEl){
                 errorEl.textContent = `Please add atleast ${MINIMUM_IMAGE_INPUT} images`
             }
@@ -47,8 +51,8 @@ if (productImageInput) {
                             const croppedFile = new File([blob], `croped-${file.name}`, { type: "image/jpeg" });
                             image.src = URL.createObjectURL(blob);
                             croppedFileArray[i] = croppedFile;
-
-                            if (croppedFileArray.length === files.length) {
+                            
+                            if (croppedFileArray.length === MAXIMUM_IMAGE_INPUT) {
                                 const fileList = new DataTransfer();
                                 croppedFileArray.forEach((croppedFile) => {
                                     fileList.items.add(croppedFile);
@@ -56,6 +60,7 @@ if (productImageInput) {
 
                                 productImageInput.files = fileList.files;
                             }
+
                         }, "image/jpeg");
                     }
                 });

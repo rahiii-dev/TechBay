@@ -14,7 +14,10 @@
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Product Name</label>
-                  <input type="text" name="product_name"/>
+                  <input type="text" name="product_name" value="<%= locals.errorObj?.product_name || '' %>"/>
+                  <% if(locals.errorObj?.product_nameError){ %>
+                    <p class="text-danger mt-1"><%= locals.errorObj?.product_nameError %></p>
+                  <% } %>
                 </div>
               </div>
     
@@ -24,9 +27,12 @@
                       <select class="select" name="category">
                           <option value="">Choose Category</option>
                           <%for(const category of locals.categories){%>
-                            <option value="<%=category.id%>"><%=category.name%></option>
+                            <option value="<%=category.id%>" <%= (locals.errorObj?.category == category.id) ? 'selected' : '' %>><%=category.name%></option>
                           <%}%>
-                  </select>
+                     </select>
+                     <% if(locals.errorObj?.categoryError){ %>
+                      <p class="text-danger mt-1"><%= locals.errorObj?.categoryError %></p>
+                    <% } %>
                 </div>
               </div>
             
@@ -35,23 +41,29 @@
                   <label>Unit</label>
                   <select class="select" name="unit">
                     <option value="">Choose Unit</option>
-                    <option value="PCS">PCS</option>
-                    <option value="NOS">NOS</option>
+                    <option value="PCS"  <%= (locals.errorObj?.unit === 'PCS' ) ? 'selected' : ''%>>PCS</option>
+                    <option value="NOS" <%= (locals.errorObj?.unit === 'NOS' ) ? 'selected' : ''%>>NOS</option>
                   </select>
+                  <% if(locals.errorObj?.unitError){ %>
+                    <p class="text-danger mt-1"><%= locals.errorObj?.unitError %></p>
+                  <% } %>
                 </div>
               </div>
     
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Quantity</label>
-                  <input type="text" name="quantity"/>
+                  <input type="text" name="quantity" value="<%= locals.errorObj?.quantity || '' %>"/>
+                  <% if(locals.errorObj?.quantityError){ %>
+                    <p class="text-danger mt-1"><%= locals.errorObj?.quantityError %></p>
+                  <% } %>
                 </div>
               </div>
     
               <div class="col-lg-12">
                 <div class="form-group">
                   <label>Description</label>
-                  <textarea class="form-control" name="description"></textarea>
+                  <textarea class="form-control" name="description"><%= locals.errorObj?.description || '' %></textarea>
                 </div>
               </div>
     
@@ -59,9 +71,9 @@
                 <div class="form-group">
                   <label>Discount</label>
                   <select class="select" name="discount">
-                    <option>Percentage</option>
-                    <option value="10">10%</option>
-                    <option value="20">20%</option>
+                    <option value="">Percentage</option>
+                    <option value="10" <%= (locals.errorObj?.discount == '10' ) ? 'selected' : ''%>>10%</option>
+                    <option value="20" <%= (locals.errorObj?.discount == '20' ) ? 'selected' : ''%>>20%</option>
                   </select>
                 </div>
               </div>
@@ -69,7 +81,10 @@
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Price</label>
-                  <input type="text" name="price"/>
+                  <input type="text" name="price" value="<%= locals.errorObj?.price || '' %>"/>
+                  <% if(locals.errorObj?.priceError){ %>
+                    <p class="text-danger mt-1"><%= locals.errorObj?.priceError %></p>
+                  <% } %>
                 </div>
               </div>
     
@@ -87,12 +102,17 @@
                 <div class="form-group">
                   <label> Product Image <br><span>(3 images required)</span></label>
                   <div class="image-upload">
-                    <input type="file" name="images" multiple class="productImageInput" data-max-files="3" accept="image/*"/>
+                    <input type="file" name="images" data-error-el="image-error" data-min-files="3" data-max-files="5" multiple class="productImageInput"  accept="image/*"/>
                     <div class="image-uploads">
                       <img src="/static/backend/assets/img/icons/upload.svg" alt="img" />
                       <h4>Drag and drop a file to upload</h4>
                     </div>
                   </div>
+
+                  <p class="text-danger" id="image-error"></p>
+                  <% if(locals.errorObj?.imagesError){ %>
+                    <p class="text-danger mt-1"><%= locals.errorObj?.imagesError %></p>
+                  <% } %>
                 </div>
               </div>
     
