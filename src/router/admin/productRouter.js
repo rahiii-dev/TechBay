@@ -16,6 +16,7 @@ router.post('/add', upload.any('images', 3), controller.createProduct);
 router.get('/:product_id', controller.renderProductViewPage);
 
 router.get('/edit/:product_id', controller.renderProductEditPage);
+router.put('/edit/:product_id', upload.any('images', 3), controller.updateProduct);
 
 router.patch('/softdelete/:product_id', controller.softDeleteProduct);
 router.patch('/restore/:product_id', controller.restoreProduct);

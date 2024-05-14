@@ -1,5 +1,6 @@
 const Category = require('../model/categoryModel');
 const Product = require('../model/productModel')
+const fs = require('node:fs')
 
 module.exports = {
     /*  
@@ -55,10 +56,10 @@ module.exports = {
     */
         createProduct : async(req, res, next) => {
             try {
-                const {product_name, category, unit, quantity, discount} = req.body;
+                const {product_name, category, unit, quantity, price, discount} = req.body;
                 const images = req.files.map((file) => file.path);
                 req.body['images'] = images;
-                const newProduct = new Product({product_name, category, unit, quantity, discount, images});
+                const newProduct = new Product({product_name, category, unit, quantity, discount, price, images});
                 await newProduct.save();
                 return res.redirect('/admin/product/list')
             } catch (error) {
@@ -77,11 +78,31 @@ module.exports = {
                     model : Category,
                     select: 'name'
                 });
-                console.log(product);
+                // console.log(product);
                 const categories =  await Category.find({isActive : {$eq : true}}, {name : 1});
                 return res.render('admin/product/productEdit', {title : "Tech Bay | Admin | Product Management", product, categories});
             } catch (error) {
                 console.log("Error while rendering product edit page");
+                next(error)
+            }
+    },
+    /*  
+        Route: PUT admin/product/edit/:product_id
+        Purpose: update a Product
+    */
+        updateProduct : async(req, res, next) => {
+            try {
+                const {product_name, category, unit, quantity, discount, price, existingImages} = req.body;
+                let images = existingImages.split(',');
+
+                if(req.files){
+                    images = req.files.map((file) => file.path);
+                }
+
+                await Product.findByIdAndUpdate(req.params.product_id, { product_name, category, unit, quantity, discount, price, images });
+                return res.redirect('/admin/product/list')
+            } catch (error) {
+                console.log("Error while updating product");
                 next(error)
             }
     },
@@ -94,7 +115,7 @@ module.exports = {
                 await Product.findByIdAndUpdate(req.params.product_id, { isActive : false});
                 return res.redirect('/admin/product/list');
             } catch (error) {
-                console.log("Error while rendering product edit page");
+                console.log("Error while soft deleting product");
                 next(error)
             }
     },
@@ -107,7 +128,7 @@ module.exports = {
                 await Product.findByIdAndUpdate(req.params.product_id, { isActive : true});
                 return res.redirect('/admin/product/list');
             } catch (error) {
-                console.log("Error while rendering product edit page");
+                console.log("Error while soft deleting product");
                 next(error)
             }
     },
