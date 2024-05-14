@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const controller = require('../../controller/shopController');
+const controller = require('../../controller/shop/shopController');
 
 const noCaheMiddleware = require('../../middleware/noCacheMiddleware');
 const authMiddleware = require('../../middleware/authMiddlewares')

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const passport = require('../../config/userPassport')
-const controller = require('../../controller/shopAuthController');
+const controller = require('../../controller/shop/shopAuthController');
 
 const noCaheMiddleware = require('../../middleware/noCacheMiddleware');
 const authMiddleware = require('../../middleware/authMiddlewares')

@@ -1,5 +1,5 @@
 const { log } = require('node:console');
-const Category = require('../model/categoryModel');
+const Category = require('../../model/categoryModel');
 const fs = require('node:fs');
 const path = require('node:path');
 

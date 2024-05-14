@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const controller = require('../../controller/categoryController');
+const controller = require('../../controller/admin/categoryController');
 const formValidator = require('../../validators/categoryFormValidators');
 const formErrorHandler = require('../../middleware/formErrorHandler');
 

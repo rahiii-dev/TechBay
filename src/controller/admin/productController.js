@@ -1,5 +1,5 @@
-const Category = require('../model/categoryModel');
-const Product = require('../model/productModel')
+const Category = require('../../model/categoryModel');
+const Product = require('../../model/productModel')
 const fs = require('node:fs')
 
 module.exports = {

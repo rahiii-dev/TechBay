@@ -1,4 +1,4 @@
-const Admin = require("../model/adminModel");
+const Admin = require("../../model/adminModel");
 const bcrypt = require("bcrypt");
 
 module.exports = {
