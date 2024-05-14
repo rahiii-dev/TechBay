@@ -55,9 +55,10 @@ module.exports = {
     */
         createProduct : async(req, res, next) => {
             try {
+                const {product_name, category, unit, quantity, discount} = req.body;
                 const images = req.files.map((file) => file.path);
                 req.body['images'] = images;
-                const newProduct = new Product(req.body);
+                const newProduct = new Product({product_name, category, unit, quantity, discount, images});
                 await newProduct.save();
                 return res.redirect('/admin/product/list')
             } catch (error) {
@@ -79,6 +80,32 @@ module.exports = {
                 console.log(product);
                 const categories =  await Category.find({isActive : {$eq : true}}, {name : 1});
                 return res.render('admin/product/productEdit', {title : "Tech Bay | Admin | Product Management", product, categories});
+            } catch (error) {
+                console.log("Error while rendering product edit page");
+                next(error)
+            }
+    },
+    /*  
+        Route: PATCH admin/product/softdelete/:product_id
+        Purpose: Soft delete a product
+    */
+        softDeleteProduct : async (req, res, next) => {
+            try {
+                await Product.findByIdAndUpdate(req.params.product_id, { isActive : false});
+                return res.redirect('/admin/product/list');
+            } catch (error) {
+                console.log("Error while rendering product edit page");
+                next(error)
+            }
+    },
+    /*  
+        Route: PATCH admin/product/restore/:product_id
+        Purpose: restore deleted a product
+    */
+        restoreProduct : async (req, res, next) => {
+            try {
+                await Product.findByIdAndUpdate(req.params.product_id, { isActive : true});
+                return res.redirect('/admin/product/list');
             } catch (error) {
                 console.log("Error while rendering product edit page");
                 next(error)

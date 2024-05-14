@@ -17,5 +17,9 @@ router.get('/:product_id', controller.renderProductViewPage);
 
 router.get('/edit/:product_id', controller.renderProductEditPage);
 
+router.patch('/softdelete/:product_id', controller.softDeleteProduct);
+router.patch('/restore/:product_id', controller.restoreProduct);
+
+
 
 module.exports = router;

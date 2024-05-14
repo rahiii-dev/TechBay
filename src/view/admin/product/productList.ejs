@@ -168,9 +168,13 @@
                         <a class="me-3" href="/admin/product/edit/<%= product.id%>">
                           <img src="/static/backend/assets/img/icons/edit.svg" alt="img" />
                         </a>
-                        <a class="confirm-text" href="javascript:void(0);">
-                          <img src="/static/backend/assets/img/icons/delete.svg" alt="img" />
-                        </a>
+                        <% if(product.isActive == true){%>
+                          <a onclick="confirmDelete('/admin/product/softdelete/<%= product.id%>?_method=PATCH')" href="javascript:void(0);">
+                            <img src="/static/backend/assets/img/icons/delete.svg" alt="img" />
+                          </a>
+                        <% } else{%>
+                          <a class="bg-dark badges text-white" href="/admin/product/restore/<%= product.id%>?_method=PATCH">Restore</a>
+                        <%}%>   
                       </td>
                     </tr>
               <%}%>
