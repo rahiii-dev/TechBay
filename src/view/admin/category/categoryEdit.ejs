@@ -34,7 +34,7 @@
             <div class="form-group">
               <label> Category Image</label>
               <div class="image-upload">
-                <input type="file" name="image" class="productImageInput" />
+                <input type="file" name="image" data-error-el="input-image-error" class="productImageInput" />
                 <input type="hidden" name="existingImage" value="<%= locals.category?.image %>"/>
                 <div class="image-uploads">
                   <img
@@ -45,6 +45,7 @@
                 </div>
               </div>
             </div>
+            <p class="text-danger" id="input-image-error"><%= locals.errorObj?.imageError %></p>
           </div>
 
           <div class="col-12">
