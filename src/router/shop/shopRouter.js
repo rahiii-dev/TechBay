@@ -10,11 +10,21 @@ const checkAuthenticated = authMiddleware.checkAuthenticated('/login');
 const checkIsAdmin = authMiddleware.checkIsAdmin('/admin');
 
 
+router.use((req, res, next) => {
+    res.locals.isAuthenticated = req.isAuthenticated() || req.session.isAuthenticated
+    next()
+});
+
 // public rotes
 router.get('/', 
     checkIsAdmin,
     noCaheMiddleware ,
     controller.renderHomePage);
+
+router.get('/shop',
+    checkIsAdmin,
+    controller.renderShopPage
+)
 
 // private routes
 router.get('/protected', 
