@@ -28,16 +28,22 @@ passport.use('local', new LocalStrategy({
         try {
             const userObj = await User.findOne({email})
             if(userObj){
+                if(userObj.isBlocked){
+                    req.flash('warning-message', {message : "Your account has been blocked"});
+                    req.flash('errorObj', { email })
+                    return done(null, false);
+                }
+
                 const match = await bcrypt.compare(password, userObj.password);
                 if(match){
                     return done(null, {id : userObj.id});
                 }
                 
-                req.flash('error', { message: 'Invalid Email or Password', email })
+                req.flash('errorObj', { emailError: 'Invalid Email or Password', email })
                 return done(null, false);
             }
 
-            req.flash('error', { message: 'Invalid Email', email })
+            req.flash('errorObj', { emailError: 'Invalid Email', email })
             return done(null, false);
         }
         catch(err){
@@ -52,7 +58,7 @@ passport.use('google', new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: `${serverConfig.domain()}/auth/google/callback`,
     passReqToCallback   : true
-  }, async function(request, accessToken, refreshToken, profile, done) {
+  }, async function(req, accessToken, refreshToken, profile, done) {
     try {
         const userObj = await User.findOne({
             $or : [
@@ -62,6 +68,11 @@ passport.use('google', new GoogleStrategy({
         });
 
         if(userObj){
+            if(userObj.isBlocked){
+                req.flash('warning-message', {message : "Your account has been blocked"});
+                return done(null, false);
+            }
+
             if(!userObj.googleId){
                 userObj.googleId = profile.id;
                 await userObj.save();
@@ -89,12 +100,18 @@ passport.use('facebook', new FacebookStrategy({
     clientID: process.env.FB_APP_ID,
     clientSecret: process.env.FB_APP_SECRET,
     callbackURL: `${serverConfig.domain()}/auth/facebook/callback`,
+    passReqToCallback: true
   },
-  async function(accessToken, refreshToken, profile, done) {
+  async function(req, accessToken, refreshToken, profile, done) {
     try {
         const userObj = await User.findOne({facebookId : profile.id});
 
         if(userObj){
+            if(userObj.isBlocked){
+                req.flash('warning-message', {message : "Your account has been blocked"});
+                return done(null, false);
+            }
+
             if(!userObj.facebookId){
                 userObj.facebookId = profile.id;
                 await userObj.save();

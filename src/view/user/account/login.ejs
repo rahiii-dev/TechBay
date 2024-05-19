@@ -32,11 +32,16 @@
             <div class="container">
                 <div class="row row--center">
                     <div class="col-lg-6 col-md-8 u-s-m-b-30">
+                        <% if(warningObj) {%>
+                            <div class="alert alert-warning" role="alert">
+                                <%= warningObj.message %>
+                            </div>
+                        <% } %>
                         <div class="l-f-o">
                             <div class="l-f-o__pad-box">
                                 <h1 class="gl-h1">SIGNIN</h1>
 
-                                <span class="gl-text u-s-m-b-30">If you have dont have an account<a class="gl-link" href="/register">create one here?</a></span>
+                                <span class="gl-text u-s-m-b-30">If you have dont have an account <a class="gl-link" href="/register">create one here?</a></span>
 
                                 <form class="l-f-o__form" action="/login" method="post">
                                     <div class="u-s-m-b-25">
@@ -66,17 +71,6 @@
                                             <a class="gl-link" href="lost-password.html">Lost Your Password?</a>
                                         </div>
                                     </div>
-                                    <div class="u-s-m-b-30">
-                                    <!--====== Check Box ======-->
-                                    <div class="check-box">
-
-                                        <input type="checkbox" id="remember-me">
-                                        <div class="check-box__state check-box__state--primary">
-
-                                            <label class="check-box__label" for="remember-me">Remember Me</label></div>
-                                    </div>
-                                    <!--====== End - Check Box ======-->
-                   
                                 </form>
                                 <div class="gl-s-api">
                                     <div class="u-s-m-b-15 mt-4">

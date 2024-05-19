@@ -7,11 +7,9 @@ module.exports = {
         Purpose: Render the Loginpage
     */
     renderLoginPage : (req, res) => {
-        const errorObj = {};
-        const flashMessages = req.flash('error');
-        errorObj.emailError = flashMessages[0]?.message
-        errorObj.email = flashMessages[0]?.email
-        return res.render('user/account/login', {title : "Tech Bay | Login", errorObj });
+        const errorObj = req.flash('errorObj')[0];
+        const warningObj = req.flash('warning-message')[0];
+        return res.render('user/account/login', {title : "Tech Bay | Login", errorObj, warningObj});
     },
     /*  
         Route: GET /register
