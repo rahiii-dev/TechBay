@@ -16,7 +16,9 @@ module.exports = {
         Purpose: Render the Registerpage
     */
     renderRegisterPage : (req, res) => {
-        return res.render('user/account/register', {title : "Tech Bay | Register"});
+        const errorObj = req.flash('errorObj')[0];
+        console.log(errorObj);
+        return res.render('user/account/register', {title : "Tech Bay | Register", errorObj});
     },
     /*  
         Route: post /register

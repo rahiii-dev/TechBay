@@ -7,8 +7,10 @@ const handleFormValidation = (req, res, next) => {
     const errorObj = {};
 
     errors.array().forEach((error) => {
-      errorObj[error.path + "Error"] = error.msg;
-      errorObj[error.path] = error.value;
+      if (!errorObj[error.path + "Error"]) {
+        errorObj[error.path + "Error"] = error.msg;
+        errorObj[error.path] = error.value;
+      }
     });
 
     for (let key in req.body) {
